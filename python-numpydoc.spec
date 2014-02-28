@@ -14,12 +14,14 @@ Source0:        https://pypi.python.org/packages/source/n/numpydoc/numpydoc-%{ve
 
 BuildArch:      noarch
 BuildRequires:  python-devel
+BuildRequires:  python-distribute
 BuildRequires:  python-nose
 BuildRequires:  python-sphinx
 BuildRequires:  python-matplotlib
 
 %if 0%{with_python3}
 BuildRequires:  python3-devel
+BuildRequires:  python3-distribute
 BuildRequires:  python3-nose
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-matplotlib
@@ -63,10 +65,11 @@ popd
 %if %{?with_python3}
 pushd %{py3dir}
     %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+    chmod -R a+r $RPM_BUILD_ROOT%{python3_sitelib}/numpydoc-%{version}-py?.?.egg-info
 popd
 %endif
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
-
+chmod -R a+r $RPM_BUILD_ROOT%{python_sitelib}/numpydoc-%{version}-py?.?.egg-info
 
 %check
 nosetests -v
