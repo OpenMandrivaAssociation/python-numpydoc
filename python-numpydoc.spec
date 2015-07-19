@@ -1,6 +1,6 @@
 Name:           python-numpydoc
 Version:        0.5
-Release:        2
+Release:        3
 Summary:        Sphinx extension to support docstrings in Numpy format
 
 License:        BSD
