@@ -16,7 +16,6 @@ BuildRequires:  python-sphinx
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
 BuildRequires:  python2-nose
-BuildRequires:  python2-sphinx
 
 %description
 Numpydoc inserts a hook into Sphinx's autodoc that converts docstrings
@@ -51,13 +50,6 @@ popd
 %{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 chmod -R a+r $RPM_BUILD_ROOT%{py2_puresitedir}/numpydoc-%{version}-py?.?.egg-info
 
-%check
-nosetests -v
-pushd %{py3dir}
-    %{_bindir}/nosetests-3* -v || :
-popd
-
- 
 %files
 %doc LICENSE.txt
 %{py_puresitedir}/numpydoc
