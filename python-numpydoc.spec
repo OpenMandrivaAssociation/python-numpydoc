@@ -1,33 +1,34 @@
-Name:           python-numpydoc
-Version:	1.5.0
-Release:	4
-Summary:        Sphinx extension to support docstrings in Numpy format
+%define module numpydoc
 
-License:        BSD
-URL:            https://pypi.python.org/pypi/numpydoc
-Source0:	https://files.pythonhosted.org/packages/source/n/numpydoc/numpydoc-%{version}.tar.gz
+Name:		python-numpydoc
+Summary:	Sphinx extension to support docstrings in Numpy format
+Version:	1.10.0
+Release:	1
+License:	BSD-2-Clause
+URL:		https://pypi.python.org/pypi/numpydoc
+Source0:	https://files.pythonhosted.org/packages/source/n/%{module}/%{module}-%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildArch:      noarch
-BuildRequires:  python-devel
-BuildRequires:  python-setuptools
-BuildRequires:  python-nose
-BuildRequires:  python-sphinx
+BuildSystem:	python
+BuildArch:	noarch
+BuildRequires:	pkgconfig(python3)
+BuildRequires:	python%{pyver}dist(pip)
+BuildRequires:	python%{pyver}dist(setuptools)
+BuildRequires:	python%{pyver}dist(wheel)
+BuildRequires:	python%{pyver}dist(sphinx)
 
 %description
-Numpydoc inserts a hook into Sphinx's autodoc that converts docstrings
-following the Numpy/Scipy format to a form palatable to Sphinx.
+%{name}} provides the numpydoc Sphinx extension for handling docstrings
+formatted according to the NumPy documentation format.
 
-%prep
-%autosetup -p1 -n numpydoc-%{version}
+The extension also adds the code description directives:
+np:function, np-c:function, etc.
 
-%build
-%py_build
-
-%install
-%py_install
-chmod -R a+r $RPM_BUILD_ROOT%{py3_puresitedir}/numpydoc-%{version}-py*.egg-info
+%prep -a
+# Remove bundled egg-info
+rm -rf %{module}.egg-info
 
 %files
 %doc LICENSE.txt
-%{py_puresitedir}/numpydoc
-%{py_puresitedir}/numpydoc-%{version}-py*.egg-info
+%{_bindir}/%{module}
+%{python_sitelib}/%{module}
+%{python_sitelib}/%{module}-%{version}.dist-info
